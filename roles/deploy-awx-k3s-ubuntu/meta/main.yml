@@ -1,5 +1,6 @@
 galaxy_info:
   author: your name
+  role_name: deploy-awx-k3s-ubuntu
   namespace: acme
   description: your role description
   company: your company (optional)
