@@ -1,0 +1,6 @@
+---
+
+- hosts: all
+  become: true
+  roles:
+    - deploy-awx-k3s-ubuntu
