@@ -49,7 +49,7 @@
   ansible.builtin.git:
     repo: "{{ operator_repo }}"
     dest: ~/awx-operator
-    version: 0.26.0
+    version: "{{ operator_version }}"
 
 - name: Install required python modules
   ansible.builtin.pip:
