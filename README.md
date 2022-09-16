@@ -41,7 +41,7 @@ This repo can also be imported into an existing AWX/Tower instance as a project
 License
 -------
 
-GPL V3
+GPLv3
 
 Author Information
 ------------------
