@@ -4,3 +4,5 @@
   become: true
   roles:
     - deploy-awx-k3s-ubuntu
+  environment:
+    NAMESPACE: awx
