@@ -1,0 +1,37 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+platforms:
+  - name: ubuntu-22.04-k3s
+    box: ubuntu/jammy64
+    memory: 8192
+    cpus: 4
+    interfaces:
+      - network_name: private_network
+        type: dhcp
+      - network_name: private_network
+        ip: 192.168.56.3
+  #- name: centos7
+    #box: centos/7
+    #memory: 512
+    #cpus: 1
+    #interfaces:
+      #- network_name: private_network
+        #type: dhcp
+      #- network_name: private_network
+        #ip: 192.168.56.4
+  #- name: amazonlinux2
+    #box: gbailey/amzn2
+    #memory: 512
+    #cpus: 1
+    #interfaces:
+      #- network_name: private_network
+        #type: dhcp
+      #- network_name: private_network
+        #ip: 192.168.56.5
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

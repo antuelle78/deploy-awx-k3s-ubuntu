@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  tasks:
+    - name: "Include acme.deploy_awx_k3s"
+      include_role:
+        name: "acme.deploy_awx_k3s"
+  environment:
+    NAMESPACE: awx

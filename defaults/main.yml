@@ -1,0 +1,9 @@
+---
+# defaults file for deploy_awx_k3s
+
+k3s_version: v1.21.9+k3s1
+kubeconfig_src: /etc/rancher/k3s/k3s.yaml
+usr_kubeconfig: ~/.kube/config
+
+operator_repo: https://github.com/ansible/awx-operator.git
+namespace: awx

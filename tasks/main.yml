@@ -1,0 +1,112 @@
+---
+# tasks file for deploy_awx_k3s
+
+- block:
+    - name: Make sure all packages are up to date ubuntu
+      ansible.builtin.apt:
+        name: '*'
+        state: latest
+        update_cache: true
+      ignore_errors: true
+      register: systemstatus
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Reboot system if needed
+      ansible.builtin.shell: nohup bash -c "sleep 2s && shutdown -r now" &
+      when: systemstatus is changed
+      register: rebootedornot
+
+    - name: Wait for machine to come back
+      wait_for_connection:
+        timeout: 240
+        delay: 20
+      when: rebootedornot is changed
+  tags:
+    - patchsys
+
+- name: Install k3s {{ k3s_version }}
+  ansible.builtin.shell: "curl -sfL https://get.k3s.io/ | INSTALL_K3S_VERSION={'{{ k3s_version }}'} sh -"
+  args:
+    creates: /etc/rancher/k3s/k3s.yaml
+
+- name: Change permissions on k3s kubectl configuration
+  ansible.builtin.file:
+    path: /etc/rancher/k3s/k3s.yaml
+    mode: 0644
+
+- name: Install required packages
+  ansible.builtin.apt:
+    name:
+      - git
+      - build-essential
+      - python3-pip
+      - curl
+      - jq
+    state: present
+    update_cache: true
+
+- name: Clone AWX operator git repository
+  ansible.builtin.git:
+    repo: "{{ operator_repo }}"
+    dest: ~/awx-operator
+    version: 0.26.0
+
+- name: Install required python modules
+  ansible.builtin.pip:
+    name:
+      - kubernetes
+      - PyYAML
+      - jsonpatch
+
+- name: Create
+  ansible.builtin.file:
+    path: ~/.kube
+    state: directory
+
+- name: Create user kubectl configuration
+  ansible.builtin.copy:
+    src: "{{ kubeconfig_src }}"
+    dest: "{{ usr_kubeconfig }}"
+    remote_src: true
+
+- name: Create a awx namespace
+  kubernetes.core.k8s:
+    name: awx
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Set awx ns as current context
+  command: kubectl config set-context --current --namespace=awx
+  changed_when: false
+
+- name: Deploy awx operator
+  command: make deploy
+  args:
+    chdir: ~/awx-operator
+  changed_when: false
+
+- name: Clean operator files build files
+  file:
+    path: ~/awx-operator/
+    state: absent
+
+- name: Copy pvc manifest to host
+  copy:
+    src: pvc.yml
+    dest: ~/pvc.yml
+
+- name: Copy awx manifest to host
+  copy:
+    src: awx-deploy.yml
+    dest: ~/awx-deploy.yml
+
+- name: Create pvc
+  kubernetes.core.k8s:
+    src: /root/pvc.yml
+    state: present
+
+- name: Deploy awx
+  kubernetes.core.k8s:
+    src: /root/awx-deploy.yml
+    state: present
