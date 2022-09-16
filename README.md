@@ -5,6 +5,10 @@ deploy-awx-k3s-ubuntu
 
 A quick way to deploy a single node k3s cluster running AWX.
 
+Based on this article by Josphat Mutai:
+
+https://computingforgeeks.com/how-to-install-ansible-awx-on-ubuntu-linux/
+
 Requirements
 ------------
 
