@@ -1,38 +1,50 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+deploy-awx-k3s-ubuntu
+
+A quick way to deploy a single node k3s cluster running AWX.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Ubuntu 20.04/22.04
+
+8 GB RAM
+
+4 CPU
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+k3s_version: The k3s release to deploy, default is v1.21.9+k3s1 because I had
 
-Dependencies
-------------
+stability issues using later versions, your mileage may vary.
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+
+operator_version: The awx operator release, default 0.26.0
+
+awx_version: AWX release, default 21.4.0
+
+
+After testing multiple scenarios, I have found this combination to be rock solid.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+deploy.yml can be used to execute against an inventory
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+ansible-playbook -i YourInventoryFile deploy.yml
+
 
 License
 -------
 
-BSD
+GPL V3
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Name: Michael Nelson
+
+LET'S GET IT AUTOMATED AND BE LAZY :<)
