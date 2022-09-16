@@ -36,6 +36,7 @@ deploy.yml can be used to execute against an inventory
 
 ansible-playbook -i YourInventoryFile deploy.yml
 
+This repo can also be imported into an existing AWX/Tower instance as a project
 
 License
 -------
