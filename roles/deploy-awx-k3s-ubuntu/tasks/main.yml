@@ -12,15 +12,9 @@
       when: ansible_distribution == "Ubuntu"
 
     - name: Reboot system if needed
-      ansible.builtin.shell: nohup bash -c "sleep 2s && shutdown -r now" &
+      ansible.builtin.reboot:
+        reboot_timeout: 240
       when: systemstatus is changed
-      register: rebootedornot
-
-    - name: Wait for machine to come back
-      wait_for_connection:
-        timeout: 240
-        delay: 20
-      when: rebootedornot is changed
   tags:
     - patchsys
 
