@@ -77,27 +77,27 @@
     state: present
 
 - name: Set awx ns as current context
-  command: kubectl config set-context --current --namespace=awx
+  ansible.builtin.command: kubectl config set-context --current --namespace=awx
   changed_when: false
 
 - name: Deploy awx operator
-  command: make deploy
+  ansible.builtin.command: make deploy
   args:
     chdir: ~/awx-operator
   changed_when: false
 
 - name: Clean operator files build files
-  file:
+  ansible.builtin.file:
     path: ~/awx-operator/
     state: absent
 
 - name: Copy pvc manifest to host
-  copy:
+  ansible.builtin.copy:
     src: pvc.yml
     dest: ~/pvc.yml
 
 - name: Copy awx manifest to host
-  copy:
+  ansible.builtin.copy:
     src: awx-deploy.yml
     dest: ~/awx-deploy.yml
 
