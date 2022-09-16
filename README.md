@@ -29,6 +29,16 @@ awx_version: AWX release, default 21.4.0
 
 After testing multiple scenarios, I have found this combination to be rock solid.
 
+Admin password
+----------------
+
+SSH into the host and run:
+
+```
+kubectl get secret awx-admin-password -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}'
+
+```
+
 Example Playbook
 ----------------
 
