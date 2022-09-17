@@ -20,8 +20,6 @@
 
 - name: Install k3s {{ k3s_version }}
   ansible.builtin.shell: "curl -sfL https://get.k3s.io/ | INSTALL_K3S_VERSION={'{{ k3s_version }}'} sh -"
-  args:
-    creates: /etc/rancher/k3s/k3s.yaml
 
 - name: Change permissions on k3s kubectl configuration
   ansible.builtin.file:
