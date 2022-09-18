@@ -83,6 +83,12 @@ ansible-navigator run deploy.yml -i YourInventoryFile --skip-tags=k3s_install
 https://ansible-navigator.readthedocs.io/en/latest/
 
 
+Access AWX Web Interface
+----------------
+
+Visit http://hostIP:30080 after successful deployment
+
+
 license
 -------
 
