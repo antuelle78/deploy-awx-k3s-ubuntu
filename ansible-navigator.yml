@@ -9,8 +9,8 @@ ansible-navigator:
         ANSIBLE_CONFIG: ansible.cfg
     image: antuelle78/awx-ee:2.13.4
     pull:
-      arguments:
-        - "--tls-verify=false"
+      #arguments:
+        #- "--tls-verify=true"
       policy: always
 #     volume-mounts:
 #       - src: "/tmp"
