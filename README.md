@@ -1,7 +1,7 @@
 Role Name
 =========
 
-deploy-awx-k3s-ubuntu
+**deploy-awx-k3s-ubuntu**
 
 A quick way to deploy a single node k3s cluster running AWX.
 
@@ -60,11 +60,13 @@ ansible-playbook -i YourInventoryFile deploy.yml
 ansible-navigator run deploy.yml -i YourInventoryFile
 
 ```
-   Add "-m stdout" to replicate ansible-playbook behaviour
 
-3. This repo can also be imported into an existing AWX/Tower instance as a project
+3. Add "-m stdout" to replicate ansible-playbook behaviour when using
+   ansible-navigator
 
-4. Add "--skip-tags=k3s_install" to bypass reinstalling k3s on subsequent runs.
+4. This repo can also be imported into an existing AWX/Tower instance as a project
+
+5. Add "--skip-tags=k3s_install" to bypass reinstalling k3s on subsequent runs.
 
 license
 -------
