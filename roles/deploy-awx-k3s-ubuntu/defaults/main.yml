@@ -9,4 +9,4 @@ operator_version: 0.26.0
 awx_version: 21.4.0
 awx_service_type: nodeport
 operator_repo: https://github.com/ansible/awx-operator.git
-namespace: awx
+namespace_k3s: awx

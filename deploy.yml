@@ -4,5 +4,7 @@
   become: true
   roles:
     - deploy-awx-k3s-ubuntu
+  vars:
+    ansible_user: ghost
   environment:
     NAMESPACE: awx

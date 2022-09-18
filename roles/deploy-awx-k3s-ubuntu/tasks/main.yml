@@ -20,6 +20,14 @@
 
 - name: Install k3s {{ k3s_version }}
   ansible.builtin.shell: "curl -sfL https://get.k3s.io/ | INSTALL_K3S_VERSION={'{{ k3s_version }}'} sh -"
+  tags:
+    - k3s_install
+
+- name: Pause to allow cluster to fully initialize
+  ansible.builtin.pause:
+    minutes: 1
+  tags:
+    - k3s_install
 
 - name: Change permissions on k3s kubectl configuration
   ansible.builtin.file:
@@ -50,7 +58,7 @@
       - PyYAML
       - jsonpatch
 
-- name: Create
+- name: Create kubeconfig directory
   ansible.builtin.file:
     path: ~/.kube
     mode: 0700
@@ -65,7 +73,7 @@
 
 - name: Create a awx namespace
   kubernetes.core.k8s:
-    name: "{{ namespace }}"
+    name: "{{ namespace_k3s }}"
     api_version: v1
     kind: Namespace
     state: present
@@ -106,3 +114,19 @@
   kubernetes.core.k8s:
     src: /root/awx-deploy.yml
     state: present
+    wait: true
+    wait_sleep: 10
+    wait_timeout: 60
+
+- name: Get an AWX admin password
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Secret
+    name: awx-admin-password
+    namespace: awx
+  register: awx_secret
+
+- name: Display admin password
+  ansible.builtin.debug:
+    msg: "The awx admin password is:
+      {{ awx_secret.resources[0].data.password| b64decode }}"

@@ -3,7 +3,7 @@ apiVersion: awx.ansible.com/v1beta1
 kind: AWX
 metadata:
   name: awx
-  namespace: {{ namespace }}
+  namespace: {{ namespace_k3s }}
 spec:
   image_version: {{ awx_version }}
   service_type: {{ awx_service_type }}
