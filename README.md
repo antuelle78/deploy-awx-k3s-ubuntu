@@ -64,9 +64,19 @@ ansible-navigator run deploy.yml -i YourInventoryFile
 3. Add "-m stdout" to replicate ansible-playbook behaviour when using
    ansible-navigator
 
-4. This repo can also be imported into an existing AWX/Tower instance as a project
+```
+ansible-navigator run deploy.yml -i YourInventoryFile -m stdout
 
-5. Add "--skip-tags=k3s_install" to bypass reinstalling k3s on subsequent runs.
+```
+
+4. Add "--skip-tags=k3s_install" to bypass reinstalling k3s on subsequent runs.
+
+```
+ansible-navigator run deploy.yml -i YourInventoryFile --skip-tags=k3s_install
+
+```
+
+5. This repo can also be imported into an existing AWX/Tower instance as a project
 
 license
 -------
