@@ -78,6 +78,11 @@ ansible-navigator run deploy.yml -i YourInventoryFile --skip-tags=k3s_install
 
 5. This repo can also be imported into an existing AWX/Tower instance as a project
 
+**Ansible Navigator Documentation:**
+
+https://ansible-navigator.readthedocs.io/en/latest/
+
+
 license
 -------
 
