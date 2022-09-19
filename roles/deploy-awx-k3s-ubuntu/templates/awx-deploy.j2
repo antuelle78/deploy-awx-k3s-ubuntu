@@ -6,6 +6,7 @@ metadata:
   namespace: {{ namespace_k3s }}
 spec:
   image_version: {{ awx_version }}
+  image: "{{ _image }}"
   service_type: {{ awx_service_type }}
   projects_persistence: true
   projects_storage_access_mode: ReadWriteOnce
