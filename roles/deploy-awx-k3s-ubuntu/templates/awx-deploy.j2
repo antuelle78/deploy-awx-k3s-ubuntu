@@ -5,6 +5,7 @@ metadata:
   name: awx
   namespace: {{ namespace_k3s }}
 spec:
+  image: "quay.io/ansible/awx"
   image_version: {{ awx_version }}
   service_type: {{ awx_service_type }}
   projects_persistence: true
