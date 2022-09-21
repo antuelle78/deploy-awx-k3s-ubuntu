@@ -2,6 +2,9 @@ Role Name
 =========
 
 **deploy-awx-k3s-ubuntu**
+Use my other repo which has work arouds for some issues for latest versions:
+
+https://github.com/antuelle78/awx-install-on-k3s
 
 A quick way to deploy a single node k3s cluster running AWX.
 
